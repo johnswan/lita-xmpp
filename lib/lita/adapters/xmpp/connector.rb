@@ -47,6 +47,29 @@ module Lita
           end
         end
 
+        def join(muc_domain, room)
+          Lita.logger.debug("got join request: muc_domain")
+          room_jid = normalized_jid(room, muc_domain, robot.name)
+          if mucs[room_jid.bare.to_s]
+            Lita.logger.debug "Already in room with JID #{room_jid.bare.to_s}"
+            return
+          end
+
+          muc = Jabber::MUC::SimpleMUCClient.new(client)
+          mucs[room_jid.bare.to_s] = muc
+
+          register_muc_message_callback(muc)
+
+          Lita.logger.info("Joining room: #{room_jid}.")
+          muc.join(room_jid)
+        end
+
+        def part(muc_domain, room)
+          room_jid = normalized_jid(room, muc_domain, robot.name)
+          muc = mucs.delete(room_jid.bare.to_s)
+          muc.exit if muc
+        end
+
         def list_rooms(muc_domain)
           Lita.logger.debug("Querying server for list of rooms.")
           browser = Jabber::MUC::MUCBrowser.new(client)
