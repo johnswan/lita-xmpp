@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-xmpp"
-  spec.version       = "1.1.0.pre"
+  spec.version       = "1.2.0"
   spec.authors       = ["Justin Mazzi"]
   spec.email         = ["jmazzi@gmail.com"]
   spec.description   = %q{A XMPP adapter for Lita.}
@@ -14,7 +14,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.metadata = {"lita_plugin_type" => "adapter"}
 
-  spec.add_runtime_dependency "lita", ">= 3.0"
+  spec.add_runtime_dependency "lita", ">= 4.0"
   spec.add_runtime_dependency "xmpp4r"
 
   spec.add_development_dependency "bundler", "~> 1.7.2"

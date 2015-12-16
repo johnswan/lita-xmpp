@@ -3,10 +3,10 @@ require "spec_helper"
 describe Lita::Adapters::HipChat do
   before do
     Lita.configure do |config|
-      config.adapter.jid = "jid"
-      config.adapter.password = "secret"
-      config.adapter.rooms = nil
-      config.adapter.muc_domain = nil
+      config.adapters.xmpp.jid = "jid"
+      config.adapters.xmpp.password = "secret"
+      config.adapters.xmpp.rooms = nil
+      config.adapters.xmpp.muc_domain = nil
     end
 
     allow(described_class::Connector).to receive(:new).and_return(connector)
@@ -40,7 +40,7 @@ describe Lita::Adapters::HipChat do
     end
 
     it "joins rooms with a custom muc_domain" do
-      Lita.config.adapter.muc_domain = "foo.bar.com"
+      Lita.config.adapters.xmpp.muc_domain = "foo.bar.com"
       expect(subject.connector).to receive(:join_rooms).with(
         "foo.bar.com",
         anything
@@ -50,7 +50,7 @@ describe Lita::Adapters::HipChat do
 
     it "joins all rooms when config.rooms is :all" do
       all_rooms = ["room_1_id", "room_2_id"]
-      Lita.config.adapter.rooms = :all
+      Lita.config.adapters.xmpp.rooms = :all
       allow(subject.connector).to receive(:list_rooms).with(
         "conf.hipchat.com"
       ).and_return(all_rooms)
@@ -63,7 +63,7 @@ describe Lita::Adapters::HipChat do
 
     it "joins rooms specified by config.rooms" do
       custom_rooms = ["my_room_1_id", "my_room_2_id"]
-      Lita.config.adapter.rooms = custom_rooms
+      Lita.config.adapters.xmpp.rooms = custom_rooms
       expect(subject.connector).to receive(:join_rooms).with(
         "conf.hipchat.com",
         custom_rooms

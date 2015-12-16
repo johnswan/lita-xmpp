@@ -34,11 +34,11 @@ There's no need to set `config.robot.mention_name` manually. The adapter will lo
 Lita.configure do |config|
   config.robot.name = "Lita Bot"
   config.robot.adapter = :xmpp
-  config.adapter.jid = "12345_123456@myserver.com"
-  config.adapter.password = "secret"
-  config.adapter.debug = false
-  config.adapter.rooms = :all
-  config.adapter.muc_domain = "conf.myserver.com"
+  config.adapters.xmpp.jid = "12345_123456@myserver.com"
+  config.adapters.xmpp.password = "secret"
+  config.adapters.xmpp.debug = false
+  config.adapters.xmpp.rooms = :all
+  config.adapters.xmpp.muc_domain = "conf.myserver.com"
   config.mention_name = "bot"
 end
 ```
